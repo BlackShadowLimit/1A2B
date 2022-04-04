@@ -8,6 +8,7 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
+#include <cmath>
 using namespace std;
 
 int read(); // this fuction is for reading the number
@@ -86,31 +87,29 @@ void check(int ans, int gus) {
 // this is main fuction
 int main () {
     int ans = 0, gus = 1;
+    int a[4];
     
     // opening
     cout << "\tWelcome to 1A2B game\t";
     cout << "\n============================\n";
     
     // declare answer
-    while (1) {
-        srand(time(0));
-        ans = rand() % 10000 + 1;
-        ans = ans - 1000;
-        if (ans >= 0) {
-            split(ans);
-            for (int i = 0; i <= 3; i++) {
-                for (int j = 0; j <= 3; j++) {
-                    if (A[i] != A[j]) {
-                        continue;
-                    } else {
-                        break;
-                    }
-                }
+
+    srand(time(0));
+    for (int i = 0; i <=3; i++) {
+        a[i] = rand() % 9 + 1;
+    }
+    for (int i = 0; i <= 3; i++) {
+        for (int j = i + 1; j <= 3; j++) {
+            if (a[i] == a[j]) {
+                a[j] = rand() % 9 + 1;
+                j--;
             }
-            break;
         }
     }
-    cout << ans;
+    for (int i = 3; i >= 0; i--) {
+        ans = ans + (a[i] * pow(10, i));
+    }
     cout << "Records\tHints\n" ;
     cout << "-------\t-----\n";
     while (ans != gus) {
